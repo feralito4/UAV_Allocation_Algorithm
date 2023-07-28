@@ -1,0 +1,87 @@
+		
+		DISPLAY GRAFO
+			  
+	   /*JFrame frame = new JFrame("DemoGraph");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        JGraphXAdapter<UAV,DefaultWeightedEdge> graphAdapter = 
+                new JGraphXAdapter<>(aux);
+        
+        mxIGraphLayout layout = new mxCircleLayout(graphAdapter);
+        layout.execute(graphAdapter.getDefaultParent());
+        
+        frame.add(new mxGraphComponent(graphAdapter));
+
+        frame.pack();
+        frame.setLocationByPlatform(true);
+        frame.setVisible(true);*/
+        
+ -----------------------------------------------------------------------------------------------------------------------------------       
+        
+        GRAPH ITERATOR
+        
+        GraphIterator<UAV,DefaultWeightedEdge> iterator = 
+                new DepthFirstIterator<UAV,DefaultWeightedEdge>(aux);
+        while (iterator.hasNext()) {
+        	UAV prueba=iterator.next();
+            System.out.println(prueba);	
+            
+        }
+        
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+		Dijsktra
+		
+		GraphPath<UAV, DefaultWeightedEdge> l = DijkstraShortestPath.findPathBetween( aux,v0 ,v6 );
+		GraphPath<UAV, DefaultWeightedEdge> l2 = BidirectionalDijkstraShortestPath.findPathBetween(aux, v0, v6);
+		List<UAV> lista_vertices = l.getVertexList();
+		List<UAV> lista_vertices2 = l2.getVertexList();
+		
+		System.out.println(lista_vertices);
+		System.out.println(lista_vertices2);        
+		
+		
+------------------------------------------------------------------------------------------------------------------------------------------
+		algoritmo version 1
+	
+		for(peticion w : peticiones) {
+			System.out.println("Peticion con origen en el UAV con ID " + w.getOrigen());
+			UAV currentUAV= w.getOrigen();
+			UAV copiaUAV= new UAV(currentUAV);
+			for(VNF m : w.getLista_vnf()) {
+				if(m.getRequerimientoRAM() <= copiaUAV.getCapacidadRAM() && !copiaUAV.checkVNF(m)) {
+					copiaUAV.addVNF(m);
+					copiaUAV.setCapacidadRAM(copiaUAV.getCapacidadRAM()-m.getRequerimientoRAM());
+					System.out.println("	se instala el microservicio " + m.getNombre() + " en el UAV con id " + currentUAV.getId());
+					System.out.println("	la bateria del auv " + currentUAV.getId() + " ha sido reducida a " + copiaUAV.getCapacidadRAM());
+				}
+				else {
+					if(m.getRequerimientoRAM() > copiaUAV.getCapacidadRAM()) {
+						System.out.println("El UAV con id " + copiaUAV.getId() +" no tiene recursos para instalar el microservicio " + m.getNombre());
+						System.out.println("	buscando el mejor AUV...");
+						UAV mejorUAV=alg.encontrarMejorUav(currentUAV,m);
+						if(mejorUAV!=null) {
+							System.out.println("	mejor UAV encontrado");
+							currentUAV=mejorUAV; 
+							currentUAV.addVNF(m);
+							currentUAV.setCapacidadRAM(currentUAV.getCapacidadRAM()-m.getRequerimientoRAM());
+							
+							System.out.println("	se instala el microservicio " + m.getNombre() + " en el UAV con id " + currentUAV.getId());
+							System.out.println("	la bateria del auv " + currentUAV.getId() + " ha sido reducida a " + currentUAV.getCapacidadRAM());
+						
+						}
+						else {
+							System.out.println("Mejor UAV no encontrado");
+						}
+							
+					}
+					else
+						System.out.println("el microservicio ya existe en el UAV");
+				}
+				
+			w.setOrigen(copiaUAV);
+			cambios.clear();
+			}
+		
+
+			
