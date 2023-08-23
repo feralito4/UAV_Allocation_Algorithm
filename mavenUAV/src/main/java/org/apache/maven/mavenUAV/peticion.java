@@ -9,9 +9,8 @@ public class peticion {
 	private List<VNF> lista_vnf;
 	
 	
-	public peticion(UAV origen, UAV destino) {
+	public peticion(UAV origen) {
 		this.origen = origen;
-		this.destino =destino;
 		this.lista_vnf = new ArrayList<VNF>();
 	}
 
@@ -22,14 +21,6 @@ public class peticion {
 	
 	public void setOrigen(UAV origen) {
 		this.origen = origen;
-	}
-	
-	public UAV getDestino() {
-		return destino;
-	}
-	
-	public void setDestino(UAV destino) {
-		this.destino = destino;
 	}
 	
 	public List<VNF> getLista_vnf() {

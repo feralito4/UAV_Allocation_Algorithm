@@ -83,5 +83,42 @@
 			cambios.clear();
 			}
 		
+		
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+MEJOR UAV
+
+
+	private UAV encontrarMejorUav(UAV current, VNF m) {
+		
+		UAV mejorUAV = new UAV(1000,0,0);
+		float capacidadRamMax=0;
+		int grado=0;
+		int totalVNF=99;
+		
+		List<UAV> adyacentes= new ArrayList<UAV>(Graphs.neighborListOf(g, current));
+		
+		for(UAV a : adyacentes) {
+			if(capacidadRamMax<a.getCapacidadRAM() && m.getRequerimientoRAM() <= a.getCapacidadRAM() && !a.checkVNF(m)) {
+				capacidadRamMax=a.getCapacidadRAM();
+				mejorUAV=a;				
+			}
+			else
+				if(capacidadRamMax==a.getCapacidadRAM()) {
+					if(totalVNF<a.getVNF_List().size() && m.getRequerimientoRAM() <= a.getCapacidadRAM() && !a.checkVNF(m)) {
+						totalVNF=a.getVNF_List().size();
+						mejorUAV=a;
+					}
+					else {
+						
+					}	
+				}
+		}//for
+		
+		return mejorUAV;
+	}
+
+
+
 
 			
