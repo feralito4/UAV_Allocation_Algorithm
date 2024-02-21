@@ -43,6 +43,43 @@
      <artifactId>jgraphx</artifactId>
      <version>4.2.2</version>
 	</dependency>
+
+    <dependency>
+    	<groupId>org.apache.poi</groupId>
+    	<artifactId>poi</artifactId>
+    	<version>4.1.1</version>
+    </dependency>
+
+    <dependency>
+    	<groupId>org.apache.poi</groupId>
+    	<artifactId>poi-ooxml</artifactId>
+    	<version>4.1.1</version>
+    </dependency>
+    
+    <dependency>
+    	<groupId>com.aspose</groupId>
+        <artifactId>aspose-cells</artifactId>
+        <version>23.11</version>
+	</dependency>
+
+    <dependency>
+        <groupId>com.aspose</groupId>
+        <artifactId>aspose-cells</artifactId>
+        <version>23.11</version>
+        <classifier>javadoc</classifier>
+	</dependency>
+	
+	<dependency>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcprov-jdk15on</artifactId>
+        <version>1.68</version>
+	</dependency>        
+
+    <dependency>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcpkix-jdk15on</artifactId>
+        <version>1.68</version>
+    </dependency>    
     
   </dependencies>
 
@@ -104,7 +141,13 @@
       		<enabled>true</enabled>
     	</snapshots>
   	</repository>
-	</repositories>
+  	
+    <repository>
+        <id>AsposeJavaAPI</id>
+        <name>Aspose Java API</name>
+		<url>https://releases.aspose.com/java/repo/</url>
+    </repository>
+  </repositories>
   
   
   

@@ -3,13 +3,13 @@ package org.apache.maven.mavenUAV;
 public class VNF {
 	
 	private float requerimientoRAM; //MB
-	private float requerimientoBateria; //w/h posiblemente lo obviemos
+	private double requerimientoBateria; //gigaciclos
 	private String nombre;
 	
 	
-	public VNF(String nombre, float requerimientoRAM, float requerimientoBateria){
+	public VNF(String nombre, float requerimientoRAM, double d){
 		this.requerimientoRAM=requerimientoRAM;
-		this.requerimientoBateria=requerimientoBateria;
+		this.requerimientoBateria=d;
 		this.nombre=nombre;
 	}
 	
@@ -21,7 +21,7 @@ public class VNF {
 		this.requerimientoRAM = requerimientoRAM;
 	}
 
-	public float getRequerimientoBateria() {
+	public double getRequerimientoBateria() {
 		return requerimientoBateria;
 	}
 

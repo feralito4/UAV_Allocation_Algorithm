@@ -119,6 +119,74 @@ MEJOR UAV
 	}
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ALGORITMO ANTES DEL REFACTOR
 
 
+public void VNF_placement_algorithm() {
+		
+		boolean replicacion_correcta=false;
+		boolean exit;
+		UAV currentUAV;
+		VNF m;
+		Iterator<VNF> it;
+		List<UAV>cambios= new ArrayList<UAV>();
+		
+		for(peticion w : peticiones) {
+			System.out.println("Peticion con origen en el UAV con ID " + w.getOrigen());
+			currentUAV= w.getOrigen();
+			
+			it = w.getLista_vnf().iterator(); 
+			exit=false;
+			
+			while(it.hasNext() && !exit){ //(º0º)
+				m=it.next();
+				replicacion_correcta=comprobarReplicacionVNF(m,currentUAV);// 
+				if(replicacion_correcta) { 
+					if(m.getRequerimientoRAM() <= currentUAV.getCapacidadRAM() && comprobarSaturación(currentUAV)) {
+						
+						aplicarCambiosUav(currentUAV, m,cambios);
+						
+					}
+					else {
+						
+						System.out.println("El UAV con id " + currentUAV.getId() +" no tiene recursos para instalar el microservicio " + m.getNombre());
+						System.out.println("	buscando el mejor AUV...");
+						UAV mejorUAV=encontrarMejorUav(currentUAV,m);
+						if(mejorUAV!=null) {
+							System.out.println("	mejor UAV encontrado");
+							currentUAV=mejorUAV; //esto se puede quitar
+								
+							aplicarCambiosUav(currentUAV, m,cambios);
+								
+						}
+						else {
+								System.out.println("Mejor UAV no encontrado-no se puede realizar la peticion");
+								limpiarListaCambios(cambios);
+								exit=true; //tambien prodiamos simplemente quitar el exit y continuar aunque las peticiones 
+
+						}
+							
+						
+					}
+				}
+			}//while
+			System.out.println("-----------------------------------------------");
+		}//for
+		getMapa_replicacion().clear();		
+	}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+int [][] matriz_colocacion_escenario_grande= {{0,0,0,0,0,0,0,0,0,0,0,0},
+    													  {0,0,0,0,0,0,0,1,1,1,0,0},
+    													  {0,0,1,1,1,0,0,1,1,1,0,0},
+    													  {0,0,1,1,1,1,1,1,1,1,0,0},
+    													  {0,0,1,1,1,1,1,1,1,1,0,0},
+    													  {0,0,0,0,1,1,0,0,1,1,1,0},
+    													  {0,0,0,1,1,0,0,0,1,1,1,0},
+    													  {0,1,1,1,1,0,1,1,1,1,1,0},
+    													  {0,1,1,1,1,1,1,1,0,0,0,0},
+    													  {0,1,1,1,1,1,1,0,0,0,0,0},
+    													  {0,0,0,0,0,0,0,0,0,0,0,0}};
 			
